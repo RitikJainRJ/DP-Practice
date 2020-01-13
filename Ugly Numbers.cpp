@@ -32,8 +32,11 @@ int findUgly(int n){
 
 int maxDivide(int a, int b)
 {
-    while (a%b == 0)
+    while (a%b == 0){
         a = a/b;
+        if(um.find(no) != um.end())
+            return um[no];
+    }
     return a;
 }
 
