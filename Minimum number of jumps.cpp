@@ -1,33 +1,37 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int minSteps(int);
+int minJump(int);
 
 int main(){
-    int t, n;
+	int t, n;
 
-    cin >> t;
-    while(t--){
-        cin >> n;
-        cout << minSteps(n) << endl;
-    }
-    return 0;
+	cin >> t;
+	while(t--){
+	    cin >> n;
+	    cout << minJump(n) << endl;
+	}
+	return 0;
 }
 
-int minSteps(int n){
-    int arr[n], load[n];
+int minJump(int n){
+    int arr[n];
 
     for(int i = 0; i < n; i++)
         cin >> arr[i];
-    load[0] = 0;
+    if(arr[0] == 0)
+        return -1;
+    int maxReach = arr[0], step = arr[0], jump = 1;
     for(int i = 1; i < n; i++){
-        load[i] = INT_MAX;
-        for(int j = 0; j < i; j++){
-            if(i <= j + arr[j] && load[j] + 1 < load[i])
-                load[i] = load[j] + 1;
+        if(i == n - 1)
+            return jump;
+        maxReach = max(maxReach, i + arr[i]);
+        step--;
+        if(step == 0){
+            jump++;
+            if(maxReach <= i)
+                return -1;
+            step = maxReach - i;
         }
     }
-    if(load[n - 1] == INT_MAX || load[n - 1] < 0)
-       return -1;
-    return load[n - 1];
 }
